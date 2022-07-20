@@ -19,23 +19,25 @@ export default function Appointment(props) {
   const CONFIRM = "CONFIRM";
   const EDIT = "EDIT";
   const ERROR_SAVE = "ERROR_SAVE";
-  const ERROR_DELETE = "ERROR_DELETE";
+  const ERROR_DELETE = "ERROR_DELETE"; //Mode states
 
-  const { mode, transition, back } = useVisualMode(
+  const { mode, transition, back } = useVisualMode( //Sets mode state based on server information passed as prop
     props.interview ? SHOW : EMPTY
   );
 
-  function save(name, interviewer) {
-    transition(SAVING);
+  function save(name, interviewer) { //Saves name and interviewer of form
+    if(interviewer){ //Checks if interviewer is selected
+      transition(SAVING);
 
-    const interview = {
-      student: name,
-      interviewer
-    };
-    
-    props.bookInterview(props.id, interview)
-    .then(() =>   transition(SHOW) )
-    .catch(error => transition(ERROR_SAVE)) //true not needed put request effects stack
+      const interview = {
+        student: name,
+        interviewer
+      };
+      
+      props.bookInterview(props.id, interview) 
+      .then(() =>   transition(SHOW) )
+      .catch(error => transition(ERROR_SAVE)) //true not needed put request effects stack
+  }
   }
 
   function onDelete() {

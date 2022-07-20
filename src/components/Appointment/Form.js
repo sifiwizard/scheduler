@@ -5,13 +5,14 @@ import InterviewerList from "components/InterviewerList";
 
 export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer || null);
-  const reset = function() {
+  const [interviewer, setInterviewer] = useState(props.interviewer || null); // Sets states for blank and edited form
+
+  const reset = function() { //Resets props
     setStudent("");
     setInterviewer(null);
   }
 
-  const cancel = function() {
+  const cancel = function() { //Calls reset function and calls onCancel prop
     reset();
     props.onCancel();
   }
@@ -25,14 +26,14 @@ export default function Form(props) {
             name="name"
             type="text"
             placeholder="Enter Student Name"
-            value={student}
-            onChange={(event) => setStudent(event.target.value)}
+            value={student} 
+            onChange={(event) => setStudent(event.target.value)} //Changes value on input
           />
         </form>
         <InterviewerList 
         interviewers={props.interviewers}
         value={interviewer}
-        onChange={setInterviewer}
+        onChange={setInterviewer} //Changes value on input
         />
       </section>
       <section className="appointment__card-right">

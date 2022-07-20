@@ -13,11 +13,11 @@ export default function useApplicationData() {
     days: [],
     appointments: {},
     interviewers: {}
-  });
+  }); //Sets base state
 
   const setDay = day => setState({ ...state, day });
 
-  useEffect(() => {
+  useEffect(() => { //Runs when opeing
     Promise.all([
       axios.get('api/days'),
       axios.get('api/appointments'),
@@ -36,15 +36,15 @@ export default function useApplicationData() {
     const appointments = {
       ...state.appointments,
       [id]: appointment
-    };
+    }; //Copys states with new information to be added after sever update
 
-    const newday = getDay(state, state.day)
+    const newday = getDay(state, state.day) 
     newday.spots--;
-    const days = replaceDay(state, newday)
+    const days = replaceDay(state, newday)// Gets add replaces day spots with new spots
 
     return axios.put(`api/appointments/${id}`, {interview})
     .then(() => {  
-      setState({...state, appointments, days });  
+      setState({...state, appointments, days });  //After server is updated update state
     })
   }
 
@@ -68,5 +68,5 @@ export default function useApplicationData() {
     })
   }
 
-return {state, setDay, bookInterview, cancelInterview}
+return {state, setDay, bookInterview, cancelInterview} //Return base state and state change functions
 }

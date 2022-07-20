@@ -5,7 +5,7 @@ import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "./helpers/selectors";
-import useApplicationData from "hooks/useApplicationData";
+import useApplicationData from "hooks/useApplicationData"; //Imports
 
 
 export default function Application(props) {
@@ -15,13 +15,13 @@ export default function Application(props) {
     setDay,
     bookInterview,
     cancelInterview
-  } = useApplicationData();
+  } = useApplicationData(); //Consts added by application data
 
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
 
-  const appointmentsMap = dailyAppointments.map((appointment) => {
+  const appointmentsMap = dailyAppointments.map((appointment) => { //Preforms map operation to add appointments for each day
     const interview = getInterview(state, appointment.interview)
     const interviewers = getInterviewersForDay(state, state.day)
 
