@@ -39,10 +39,10 @@ export default function Appointment(props) {
   }
 
   function onDelete() {
-    transition(DELETING, true);
+    transition(DELETING); //true not needed put request effects stack
     props.cancelInterview(props.id)
     .then(() => transition(EMPTY) )
-    .catch(error => transition(ERROR_DELETE)); //true not needed put request effects stack
+    .catch(error => transition(ERROR_DELETE, true)); //true not needed put request effects stack
   }
 
   return (
