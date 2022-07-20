@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 
 import axios from "axios";
 
+import { getDay, replaceDay } from "components/helpers/selectors";
+
 
 
 export default function useApplicationData() {
@@ -35,9 +37,14 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
+
+    const newday = getDay(state, state.day)
+    newday.spots--;
+    const days = replaceDay(state, newday)
+
     return axios.put(`api/appointments/${id}`, {interview})
     .then(() => {  
-      setState({...state, appointments});  
+      setState({...state, appointments, days });  
     })
   }
 
@@ -50,9 +57,14 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
+
+    const newday = getDay(state, state.day)
+    newday.spots++;
+    const days = replaceDay(state, newday)
+    
     return axios.delete(`api/appointments/${id}`)
     .then(() => {  
-      setState({...state, appointments});  
+      setState({...state, appointments, days});  
     })
   }
 
