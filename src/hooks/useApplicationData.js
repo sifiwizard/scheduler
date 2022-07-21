@@ -19,11 +19,10 @@ export default function useApplicationData() {
 
   useEffect(() => { //Runs when opeing
     Promise.all([
-      axios.get('api/days'),
-      axios.get('api/appointments'),
-      axios.get('api/interviewers')
+      axios.get('/api/days'),
+      axios.get('/api/appointments'),
+      axios.get('/api/interviewers')
     ]).then((all) => {
-      console.log(all[2].data)
       setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
     })
   }, []);
@@ -42,7 +41,7 @@ export default function useApplicationData() {
     newday.spots--;
     const days = replaceDay(state, newday)// Gets add replaces day spots with new spots
 
-    return axios.put(`api/appointments/${id}`, {interview})
+    return axios.put(`/api/appointments/${id}`, {interview})
     .then(() => {  
       setState({...state, appointments, days });  //After server is updated update state
     })
@@ -62,7 +61,7 @@ export default function useApplicationData() {
     newday.spots++;
     const days = replaceDay(state, newday)
     
-    return axios.delete(`api/appointments/${id}`)
+    return axios.delete(`/api/appointments/${id}`)
     .then(() => {  
       setState({...state, appointments, days});  
     })

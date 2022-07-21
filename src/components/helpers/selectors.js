@@ -14,12 +14,12 @@ export function getInterviewersForDay(state, day) {
   return selectedDay[0] ? selectedDay[0].interviewers.map(interviewer => state.interviewers[interviewer]) : [];
 }
 
-export function getDay(state, day) {
+export function getDay(state, day) { //Gets specifc day, to be used to replace day
   const selectedDay = state.days.filter(days => days.name === day);
-  return selectedDay[0]
+  return selectedDay[0];
 }
 
-export function replaceDay(state, newDay) {
+export function replaceDay(state, newDay) { //Used to change spots avalible
   const newDays = [...state.days];
   newDays[newDay.id-1] = newDay;
   return newDays;
