@@ -22,8 +22,8 @@ export default function Application(props) {
 
 
   const appointmentsMap = dailyAppointments.map((appointment) => { //Preforms map operation to add appointments for each day
-    const interview = getInterview(state, appointment.interview)
-    const interviewers = getInterviewersForDay(state, state.day)
+    const interview = getInterview(state, appointment.interview);
+    const interviewers = getInterviewersForDay(state, state.day);
 
     return(
       <Appointment 
