@@ -27,7 +27,7 @@ export default function useApplicationData() {
     })
   }, []);
 
-  function bookInterview(id, interview) {
+  function bookInterview(id, interview, edit = false) {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -38,7 +38,7 @@ export default function useApplicationData() {
     }; //Copys states with new information to be added after sever update
 
     const newday = getDay(state, state.day) 
-    newday.spots--;
+    if(!edit){newday.spots--;}
     const days = replaceDay(state, newday)// Gets add replaces day spots with new spots
 
     return axios.put(`/api/appointments/${id}`, {interview})

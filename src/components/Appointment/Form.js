@@ -8,8 +8,8 @@ export default function Form(props) {
   const [interviewer, setInterviewer] = useState(props.interviewer || null); // Sets states for blank and edited form
   const [error, setError] = useState("");
 
-  const blankStudent = false
-  const blankInterviewer = false
+  const blankStudent = false;
+  const blankInterviewer = false;
 
   const reset = function() { //Resets props
     setStudent("");

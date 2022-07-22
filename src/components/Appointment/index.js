@@ -39,6 +39,21 @@ export default function Appointment(props) {
 
   }
 
+  function edit(name, interviewer) { //Pass in edit so spots don't change
+    transition(SAVING);
+
+    const interview = {
+      student: name,
+      interviewer
+    };
+    
+    props.bookInterview(props.id, interview, true) 
+    .then(() =>   transition(SHOW) )
+    .catch(error => transition(ERROR_SAVE)) //true not needed put request effects stack
+
+}
+
+
   function onDelete() {
     transition(DELETING); //true not needed put request effects stack
     props.cancelInterview(props.id)
@@ -62,7 +77,7 @@ export default function Appointment(props) {
      {mode === SAVING && <Status message={"Saving"} />}
      {mode === DELETING && <Status message={"Deleting"} />}
      {mode === CONFIRM && <Confirm message={"Are you sure you would like to delete?"} onCancel={() => back()} onConfirm={() => onDelete()} />}
-     {mode === EDIT && <Form interviewers={props.interviewers} interviewer={props.interview.interviewer.id} student={props.interview.student} onCancel={() => back()} onSave={save} />}
+     {mode === EDIT && <Form interviewers={props.interviewers} interviewer={props.interview.interviewer.id} student={props.interview.student} onCancel={() => back()} onSave={edit} />}
      {mode === ERROR_SAVE && <Error message={"Could not save appointment"} onClose={() => back()} />}
      {mode === ERROR_DELETE && <Error message={"Could not delete appointment"} onClose={() => back()} />}
    </article>
